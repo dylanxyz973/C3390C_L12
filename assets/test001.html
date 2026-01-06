@@ -1,11 +1,209 @@
-<html>
 
+<!doctype html>
+<!-- fix: Use the correct doctype to enable standards mode (Best Practices) -->
+<html lang="en">
+<!-- fix: <html> element must have a [lang] attribute (Accessibility)
+     reason: Screen readers need the primary language to choose the right voice library.
+     ref: https://web.dev/html-has-lang -->
 <head>
-  <title>Document</title>
+  <meta charset="utf-8">
+  <!-- fix: Add responsive meta viewport (SEO + Accessibility + Performance)
+       reason: Ensures legible font sizes and mobile-friendly layout; required by Lighthouse.
+       ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- fix: Document has a <title> (SEO + Accessibility)
+       reason: Gives the page an accessible name and improves search snippets.
+       ref: https://web.dev/articles/labels-and-text-alternatives -->
+  <title>C3390C L12 – Sample Project Site</title>
+
+  <!-- fix: Meta description present (SEO)
+       reason: Helps search engines generate better snippets and improve CTR.
+       ref: https://web.dev/learn/html/metadata/ -->
+  <meta name="description" content="Sample project site for C3390C L12. Fast, accessible, and SEO-friendly GitHub Pages deployment.">
+
+  <!-- fix: Canonical URL (SEO)
+       reason: Avoid duplicate-content issues; Lighthouse checks canonical.
+       Set your actual GitHub Pages URL:
+       ref: https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Webpage_metadata -->
+  <link rel="canonical" href="https://<your-username>.github.io/C3390C_L12/">
+
+  <!-- fix: Favicon (Best Practices) -->
+  <link rel="icon" href="/img/favicon.ico">
+
+  <!-- fix: Preconnect to font origins (Performance: reduce connection setup)
+       reason: Warm up TLS/DNS for third-party fonts to lower LCP/FCP.
+       ref: https://web.dev/articles/preconnect-and-dns-prefetch -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- fix: Load Google Font with display=swap (Performance: avoid FOIT; Best Practices)
+       reason: Ensure text remains visible while webfonts load.
+       ref: https://developer.chrome.com/docs/lighthouse/performance/font-display/ -->
+  <link href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;600&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" rel="stylesheet">
+
+  <!-- fix: Preload LCP hero image (Performance)
+       reason: Make the Largest Contentful Paint resource discoverable early.
+       ref: https://developer.chrome.com/docs/performance/insights/lcp-discovery -->
+  <link rel="preload" as="image" href="/img/hero.webp" fetchpriority="high">
+
+  <!-- fix: Inline small critical CSS & defer the rest (Performance)
+       reason: Reduce render-blocking CSS; ship only above-the-fold styles early.
+       ref: https://web.dev/articles/defer-non-critical-css -->
+  <style>
+    /* Critical CSS (above-the-fold) */
+    :root {
+      color-scheme: light dark;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+      background: #ffffff;
+      color: #111111; /* fix: sufficient color contrast (Accessibility)
+                         ref: https://web.dev/learn/accessibility/color-contrast/ */
+    }
+    a {
+      color: #0A66C2;
+      text-decoration: underline;
+    }
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid #ffab00; /* visible focus indicator (Accessibility) */
+      outline-offset: 2px;
+    }
+    header, main, footer {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* fix: tap target sizing (Accessibility + SEO mobile-friendly)
+       reason: minimum ~48x48px targets + spacing
+       ref: https://web.dev/articles/accessible-tap-targets */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 48px;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: #0A66C2;
+      color: #fff;
+      border: 0;
+      text-decoration: none;
+      margin: 0.5rem;
+    }
+
+    /* fix: prevent CLS; images scale but keep intrinsic ratio (Performance)
+       ref: https://web.dev/learn/html/images/ */
+    img { max-width: 100%; height: auto; display: block; }
+
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.75rem; }
+    nav a { padding: 0.5rem 0.75rem; border-radius: 6px; }
+    nav a:hover { background: #e6f1fb; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .hero h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 2.5rem); }
+  </style>
+
+  <!-- Optional: defer non-critical CSS via preload+onload (Performance) -->
+  <!--
+  <link rel="preload" as="style" href="/css/non-critical.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/non-critical.css"></noscript>
+  -->
+
+  <!-- fix: Open Graph/Twitter (SEO rich previews) -->
+  <meta property="og:title" content="C3390C L12 – Sample Project Site">
+  <meta property="og:description" content="A fast, accessible, SEO-friendly GitHub Pages demo.">
+  <meta property="og:url" content="https://<your-username>.github.io/C3390C_L12/">
+  <meta property="og:image" content="https://<your-username>.github.io/C3390C_L12/img/hero.webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- fix: Structured data (SEO). Keep minimal and valid JSON-LD. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://<your-username>.github.io/C3390C_L12/",
+    "name": "C3390C L12 – Sample Project Site",
+    "publisher": { "@type": "Organization", "name": "<Your Name>" }
+  }
+  </script>
+
+  <!-- fix: Defer JS (Performance + Best Practices) -->
+  <script src="/js/main.js" defer></script>
 </head>
-
 <body>
-  Hello World!
-</body>
+  <!-- fix: Skip link (Accessibility) -->
+  <a class="btn" href="#content" style="position:absolute;left:-9999px;top:-9999px;"
+     onfocus="this.style.position='static';">Skip to content</a>
 
+  <header>
+    <nav aria-label="Primary">
+      <ul>
+        <!-- fix: descriptive link text (Accessibility)
+             ref: https://web.dev/articles/labels-and-text-alternatives -->
+        <li><a class="btn" href="#content">Go to Content</a></li>
+        <li><a class="btn" href="https://web.dev/" target="_blank" rel="noopener">
+          Web.Dev Guides</a></li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <div>
+        <h1>Build & Deploy a Fast, Accessible Project Site</h1>
+        <p>This sample page is tuned to score 100 across Lighthouse categories.</p>
+        <a class="btn" href="#get-started">Get Started</a>
+      </div>
+
+      <!-- fix: LCP image; do NOT lazy-load; give width/height (Performance)
+           reason: Preloaded + fetchpriority=high reduces LCP delay; explicit dims reduce CLS.
+           ref: https://web.dev/articles/fetch-priority -->
+      <picture>
+        <source srcset="/img/hero.webp" type="image/webp">
+        <img src="/img/hero.jpg" alt="Laptop with code editor open and a website preview"
+             width="1280" height="720" fetchpriority="high">
+      </picture>
+    </section>
+  </header>
+
+  <main id="content">
+    <h2 id="get-started">Get started</h2>
+    <p>Drop this file in your repo, adjust paths, and deploy to GitHub Pages.</p>
+
+    <!-- fix: responsive, lazy offscreen images with alt text (Performance + Accessibility)
+         reason: use loading="lazy" only for below-the-fold; always provide meaningful alt.
+         ref: https://web.dev/learn/html/images/ -->
+    <figure>
+      <img src="/img/screenshot-pages.jpg" alt="GitHub Pages settings screen" width="1024" height="576" loading="lazy">
+      <figcaption>GitHub Pages settings</figcaption>
+    </figure>
+
+    <!-- fix: form controls have labels (Accessibility) -->
+    <form aria-labelledby="contact-title">
+      <h3 id="contact-title">Contact us</h3>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com" required>
+      <button class="btn" type="submit">Send</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> <Your Name>. All rights reserved.</p>
+    <!-- fix: external links use rel="noopener" for security (Best Practices) -->
+    <p><a href="https://github.com/<your-username>/C3390C_L12" target="_blank" rel="noopener">View this repo</a></p>
+  </footer>
+
+  <!-- fix: tiny helper script, deferred above (Best Practices) -->
+  <script>
+    // No console errors, minimal JS, and defer to avoid blocking.
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
